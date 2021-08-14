@@ -17,7 +17,6 @@ exports.signup = (req, res) => {
         }
 
         const { username, firstName, lastName, mobileNumber, email, password,role,about } = req.body;
-        let username = shortId.generate();
         let DateCreated = new Date();
         console.log(DateCreated)
         let newUser = new User({ username, firstName, lastName, mobileNumber, email, password,role,about,DateCreated});

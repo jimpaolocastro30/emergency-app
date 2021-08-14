@@ -101,4 +101,4 @@ dispatcherRespondendSchema.methods = {
     }
 };
 
-module.exports = mongoose.model('User-salpay', dispatcherRespondendSchema);
+module.exports = mongoose.model('dispatcherRespondent', dispatcherRespondendSchema);
