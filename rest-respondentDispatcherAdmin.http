@@ -1,0 +1,64 @@
+@url = http://localhost:5000/api
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE3OGU5ZTdmMTRjMDA5MTg5MWQ1ODciLCJpYXQiOjE2Mjg5MzQ1ODUsImV4cCI6MTYyOTAyMDk4NX0.PKHOLs_i2p29-tUaZf45KcQkNWms6m9IfMX0wTNLkiU
+
+## User Registration ##
+POST {{url}}/citizen/user/signup
+Content-Type: application/json
+
+{
+    "username" : "Leona01",
+    "firstName" : "Leona",
+    "lastName" : "lewis",
+    "email" : "Leona.lewis@gmails.com",
+    "mobileNumber" : "4234242",
+    "language" : "religion",
+    "yellowCardControlNumber" : "3232323",
+    "password" : "12345678",
+    "religion" : "Roman Catholic"
+ 
+
+}
+
+### User Signin ###
+POST {{url}}/citizen/user/signin
+Content-Type: application/json
+
+{
+   "username" : "Leona01", 
+   "password" : "12345678"
+}
+
+
+### User signout ##
+GET {{url}/}citizen/user/signout
+Content-Type: application/json
+
+{
+   "Token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE3OGU5ZTdmMTRjMDA5MTg5MWQ1ODciLCJpYXQiOjE2Mjg5MzM4OTQsImV4cCI6MTYyOTAyMDI5NH0.T4XDnitpti2db6w_Y7bbgVYcUvRB80SUBg1eTKhoIVI"
+}
+
+### Get Wallet ###
+POST {{url}}/citizen/user/er
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{   
+    "reportNumber" : "dsadasda2121",
+    "emergencyCategory" : "Orange",
+    "citizenDetails" : [{
+    "username": "leona01",
+    "firstName": "Leona",
+    "lastName": "lewis",
+    "email": "leona.lewis@gmails.com",
+    "mobileNumber": "4234242"
+  }],
+    "dateTime" : "14/08/2021 5:45:00 PM"
+}
+
+### Request wallet load ###
+GET {{url}}/citizen/user/get/all/er
+Authorization: Bearer {{token}}
+
+### USER PROFILE ###
+GET {{url}}api/user/wallet/details/321321321321
