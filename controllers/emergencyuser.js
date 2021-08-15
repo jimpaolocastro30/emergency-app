@@ -140,8 +140,8 @@ exports.respondentMiddleware = (req, res, next) => {
 exports.getAllEmergency = (req, res) => {
     const pagination = req.query.pagination ? parseInt(req.query.pagination) : 10;
     const page = req.query.page ? parseInt(req.query.page) : 1;
-    Ereporting.count({}).exec((err, total) => {
-    Ereporting.find({}).exec((err, allUser) => {
+    eReporting.count({}).exec((err, total) => {
+    eReporting.find({}).exec((err, allUser) => {
         if (err) {
             return res.status(400).json({
                 error: 'inventory not found'
@@ -157,7 +157,7 @@ exports.getAllEmergency = (req, res) => {
 exports.getOneEmergency = (req, res) => {
     const slug = req.params.slug.toLowerCase();
 
-    Ereporting.findOne({ reportNumber: slug }).exec((err, players) => {
+    eReporting.findOne({ reportNumber: slug }).exec((err, players) => {
         if (err) {
             return res.status(400).json({
                 error: 'USER not found'
@@ -269,7 +269,7 @@ exports.getRespondentReport = (req, res) => {
 
 exports.dispatcherReport = (req, res) => {
     const { emergencyReportDetails, citizenDetails, dateTimeReported, dateTimeResolved, dispatched, priorityLevel, quadrant, editedAddress, long, lat, remarks, status } = req.body;
-    let dispatcherReportId = new s({ emergencyReportDetails, citizenDetails, dateTimeReported, dateTimeResolved, dispatched, priorityLevel, quadrant, editedAddress, long, lat, remarks, status });
+    let dispatcherReportId = new dpReporting({ emergencyReportDetails, citizenDetails, dateTimeReported, dateTimeResolved, dispatched, priorityLevel, quadrant, editedAddress, long, lat, remarks, status });
   
   
     dispatcherReportId.save((err, data) => {
@@ -306,7 +306,7 @@ exports.dispatcherReport = (req, res) => {
 exports.getDispatcherReportItem = (req, res) => {
     const slug = req.params.slug.toLowerCase();
 
-    dpReporting.findOne({ reportNumber: slug }).exec((err, tag) => {
+    dpReporting.findOne({ _id: slug }).exec((err, tag) => {
         if (err) {
             return res.status(400).json({
                 error: 'dispatcher not found'

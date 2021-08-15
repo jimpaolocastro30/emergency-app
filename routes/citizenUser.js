@@ -44,7 +44,7 @@ const { runValidation } = require('../validators');
 // Registration Citizen
 router.post('/citizen/user/signup', runValidation, signup);
 router.post('/citizen/user/signin', signin);
-router.get('citizen/user/signout', signout);
+router.get('/citizen/user/signout', signout);
 
 
 // Citizen report

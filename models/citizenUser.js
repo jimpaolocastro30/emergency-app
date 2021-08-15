@@ -115,4 +115,4 @@ citizenSchema.methods = {
     }
 };
 
-module.exports = mongoose.model('User-salpay', citizenSchema);
+module.exports = mongoose.model('citizenUser', citizenSchema);
