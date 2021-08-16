@@ -9,12 +9,21 @@ const expressJwt = require('express-jwt');
 
 exports.signup = (req, res) => {
     // console.log(req.body);
-    User.findOne({ username: req.body.email }).exec((err, user) => {
+    User.findOne({ email: req.body.email }).exec((err, user) => {
         if (user) {
             return res.status(400).json({
                 err: 'Email is taken'
             });
         }
+        User.findOne({ mobileNumber: req.body.mobileNumber }).exec((err, user) => {
+            if (user) {
+                return res.status(400).json({
+                    Error: 'mobileNumber is taken'
+                });
+            }    
+            
+
+        console.log(err)
 
         const { username, firstName, lastName, mobileNumber, email, password,role,about } = req.body;
         let DateCreated = new Date();
@@ -34,6 +43,7 @@ exports.signup = (req, res) => {
             });
         });
     });
+});
 };
 
 exports.signin = (req, res) => {

@@ -10,9 +10,16 @@ exports.signup = (req, res) => {
     User.findOne({ username: req.body.username }).exec((err, user) => {
         if (user) {
             return res.status(400).json({
-                err: 'Email is taken'
+                Error: 'Email is taken'
             });
         }
+        User.findOne({ mobileNumber: req.body.mobileNumber }).exec((err, user) => {
+            if (user) {
+                return res.status(400).json({
+                    Error: 'mobileNumber is taken'
+                });
+            }    
+        
 
         const { username, firstName, lastName, email,type,language,religion,yellowCardControlNumber,govtIdImage, mobileNumber, password  } = req.body;
         let DateCreated = new Date();
@@ -30,6 +37,7 @@ exports.signup = (req, res) => {
             });
         });
     });
+});
 };
 
 exports.signin = (req, res) => {
