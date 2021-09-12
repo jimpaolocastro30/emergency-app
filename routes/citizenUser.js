@@ -36,7 +36,7 @@ const upload = multer({
 
 
 const { signin, signout, signup, citizenMiddleware, 
-  emergencyReport, requireSigninUser, getAllEmergency, getOneEmergency } = require('../controllers/citizen');
+  emergencyReport, requireSigninUser,getUserProfile, updateUser } = require('../controllers/citizen');
 
 // validators
 const { runValidation } = require('../validators');
@@ -48,8 +48,8 @@ router.get('/citizen/user/signout', signout);
 
 
 // Citizen report
-router.post('/citizen/user/er', requireSigninUser, citizenMiddleware, emergencyReport);
-router.get('/citizen/user/get/all/er', requireSigninUser, citizenMiddleware, getAllEmergency);
-router.get('/citizen/user/get/one/er/:slug', requireSigninUser, citizenMiddleware, getOneEmergency);
+router.post('/citizen/user/er', requireSigninUser,  emergencyReport);
+router.get('/citizen/profile/:slug', requireSigninUser,  getUserProfile);
+router.put('/citizen/update-profile/:slug', requireSigninUser, updateUser);
 
 module.exports = router;

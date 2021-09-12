@@ -42,6 +42,9 @@ const dispatcherRespondendSchema = new mongoose.Schema(
             type: Number,
             default : 2
         },
+        department:{
+            type: Number
+        },
         hashed_password: {
             type: String,
             required: true

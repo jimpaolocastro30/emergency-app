@@ -37,7 +37,8 @@ const upload = multer({
 
 const {emergencyReport, getAllEmergency, getOneEmergency, requireSigninUser, signin, signout, signup,
 adminMiddleware,dispatcherMiddleware,dispatcherReport,getDispatcherReportItem,getDispatcherReportList,
-getEmergencyReportList, getRespondentReport, getRespondentReportList, respondentMiddleware, respondentReport} = require('../controllers/emergencyuser');
+getEmergencyReportList, getRespondentReport, getRespondentReportList, respondentMiddleware, respondentReport, updateEmergencyReport,
+getDispatcherList, getOneDispatcher, getRespondentEmergency, getOneRespondentEmergency} = require('../controllers/emergencyuser');
 
 
 // validators
@@ -55,16 +56,17 @@ router.get('/emergency/user/admin/emergencyReport/all', requireSigninUser, admin
 router.get('/emergency/user/admin/emergencyReport/one/:slug', requireSigninUser, adminMiddleware, getOneEmergency);
 
 // Dispatcher API
-router.get('/emergency/user/dispatcher/emergencyrespReport/all', requireSigninUser, dispatcherMiddleware, getAllEmergency);
-router.get('/emergency/user/dispatcher/emergencyrespReport/one/:slug', requireSigninUser, dispatcherMiddleware, getOneEmergency);
-router.post('/emergency/user/dispatcher/emergencyrespReport', requireSigninUser, dispatcherMiddleware, dispatcherReport);
-router.get('/emergency/user/dispatcher/emergencyrespReport/dispatcher/all', requireSigninUser, dispatcherMiddleware, getDispatcherReportList);
-router.get('/emergency/user/dispatcher/emergencyrespReport/dispatcher/one/:slug', requireSigninUser, dispatcherMiddleware, getDispatcherReportItem);
+router.get('/emergency/user/dispatcher/emergencyrespReport/dispatcher/all', requireSigninUser, dispatcherMiddleware, getEmergencyReportList);
+router.get('/emergency/user/dispatcher/emergencyrespReport/dispatcher/one/:slug', requireSigninUser, dispatcherMiddleware, getOneEmergency);
+router.get('/respondent/list', requireSigninUser, dispatcherMiddleware, getDispatcherList)
+router.get('/respondent/all/:slug', requireSigninUser, dispatcherMiddleware, getOneDispatcher)
+router.get('/respondent/one/:slug', requireSigninUser, dispatcherMiddleware, getOneRespondentEmergency)
+router.put('/dispatcher/dispatch/:slug', requireSigninUser, dispatcherMiddleware, updateEmergencyReport)
 
 //Respondent API
-router.post('/emergency/user/respondent/respondentReport', requireSigninUser, respondentMiddleware, respondentReport);
-router.get('/emergency/user/respondent/respondentReport/all', requireSigninUser, respondentMiddleware, getRespondentReportList);
-router.get('/emergency/user/respondent/respondentReport/one/:slug', requireSigninUser, respondentMiddleware, getRespondentReport);
+router.get('/emergency/user/respondent/respondentReport/all', requireSigninUser, respondentMiddleware, getRespondentEmergency);
+router.get('/responend/assigned/:slug', requireSigninUser, respondentMiddleware, getRespondentEmergency);
+router.put('/respondent/dispatch/:slug', requireSigninUser, respondentMiddleware, updateEmergencyReport)
 
 
 module.exports = router;

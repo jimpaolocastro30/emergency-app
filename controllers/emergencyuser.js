@@ -1,6 +1,6 @@
 const User = require('../models/dispatcherRespondentUser');
 const dpReporting = require('../models/dispatcherReporting');
-const eReporting = require('../models/emergencyReporting');
+const eReporting = require('../models/overallReportEmergency');
 const rReporting = require('../models/respondentReporting');
 const citizenUser = require('../models/citizenUser');
 const shortId = require('shortid');
@@ -165,7 +165,7 @@ exports.getAllEmergency = (req, res) => {
 };
 
 exports.getOneEmergency = (req, res) => {
-    const slug = req.params.slug.toLowerCase();
+    const slug = req.params.slug;
 
     eReporting.findOne({ reportNumber: slug }).exec((err, players) => {
         if (err) {
@@ -316,6 +316,8 @@ exports.dispatcherReport = (req, res) => {
 exports.getDispatcherReportItem = (req, res) => {
     const slug = req.params.slug.toLowerCase();
 
+    console.log(slug);
+    
     dpReporting.findOne({ _id: slug }).exec((err, tag) => {
         if (err) {
             return res.status(400).json({
@@ -323,5 +325,114 @@ exports.getDispatcherReportItem = (req, res) => {
             });
         }
         res.json(tag);
+    });
+};
+
+
+
+exports.updateEmergencyReport = (req, res) => {
+    const slug = req.params.slug;
+    
+    var myquery ={ reportNumber: slug }
+
+    var newV = req.body;
+
+    eReporting.updateOne(myquery,newV).exec((err, data) => {
+        if (err) {
+           console.log(err)
+        }
+        res.json(data.nModified + " Updated emergency");
+    });
+};
+
+
+
+exports.getDispatcherList = (req, res) => {
+    User.find({ role: 2 }).exec((err, tag) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'dispatcher not found'
+            });
+        }
+        res.json(tag);
+    });
+};
+
+
+exports.getOneDispatcher = (req, res) => {
+    const slug = req.params.slug.toLowerCase();
+
+    User.findOne({ _id: slug }).exec((err, tag) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'dispatcher not found'
+            });
+        }
+        res.json(tag);
+    });
+};
+
+
+exports.updateEmergencyDispatcherReport = (req, res) => {
+    const slug = req.params.slug;
+    
+    var myquery ={ reportNumber: slug }
+
+    var newV = req.body;
+
+    eReporting.updateOne(myquery,newV).exec((err, data) => {
+        if (err) {
+           console.log(err)
+        }
+        res.json(data.nModified + " Updated emergency");
+    });
+};
+
+
+exports.getRespondentEmergency = (req, res) => {
+    const slug = req.params.slug;
+
+    console.log("try " + slug)
+
+    eReporting.find({ dispatchTo : slug }).exec((err, tag) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'dispatcher not found'
+            });
+        }
+        res.json(tag);
+    });
+};
+
+
+
+exports.getOneRespondentEmergency = (req, res) => {
+    const slug = req.params.slug.toLowerCase();
+
+    console.log("try " + slug)
+
+    eReporting.findOne({ _id : slug }).exec((err, tag) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'dispatcher not found'
+            });
+        }
+        res.json(tag);
+    });
+};
+
+
+exports.updateEmergencyDispatcherReport = (req, res) => {
+    const slug = req.params.slug;
+    
+    var myquery ={ reportNumber: slug }
+
+    var newV = req.body;
+
+    eReporting.updateOne(myquery,newV).exec((err, data) => {
+        if (err) {
+           console.log(err)
+        }
+        res.json(data.nModified + " Updated emergency");
     });
 };

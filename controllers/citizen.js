@@ -1,9 +1,11 @@
 const User = require('../models/citizenUser');
-const Ereporting = require('../models/emergencyReporting')
+const Ereporting = require('../models/overallReportEmergency')
 
 const shortId = require('shortid');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
+var moment = require("moment");
+const _ = require('lodash');
 
 exports.signup = (req, res) => {
     // console.log(req.body);
@@ -31,7 +33,7 @@ exports.signup = (req, res) => {
                     error: err
                 });
             }
-
+console.log("dasda " + err)
             res.json({
                 message: 'Signup success! Please signin.'
             });
@@ -94,8 +96,19 @@ exports.citizenMiddleware = (req, res, next) => {
 
 
 exports.emergencyReport = (req, res) => {
-  const { reportNumber, emergencyCategory, citizenDetails, dateTime} = req.body;
-  let completeId = new Ereporting({ reportNumber, emergencyCategory, citizenDetails, dateTime });
+  const { emergencyCategory, citizenId, typeOfEmergency, emergencyAddress, userPhotoTaken} = req.body;
+ 
+  User.findOne({ _id: citizenId }).exec((err, user) => {
+  
+  var fistName = user.firstName;
+  var lastName = user.lastName;
+  var email = user.email;
+  var phoneNumber = user.mobileNumber;  
+  var transactionPrefix = "Uwr";
+  var reportNumber = transactionPrefix + moment().format("x");
+  var userDateTimeReport  = moment().format("x");  
+
+  let completeId = new Ereporting({ reportNumber, fistName, lastName, email, phoneNumber, emergencyCategory, typeOfEmergency, emergencyAddress, userPhotoTaken, userDateTimeReport });
     console.log("dasdada   :" + JSON.stringify(req.body))
 
   completeId.save((err, data) => {
@@ -107,6 +120,7 @@ exports.emergencyReport = (req, res) => {
 
       res.json('Success : Added emergency!'); // dont do this res.json({ tag: data });
   });
+});
 };
 
 
@@ -121,15 +135,15 @@ exports.getAllEmergency = (req, res) => {
             });
         }
         res.json({
-            "identifier": "get all user list", allUser,  pagination, page, total
+            "identifier": "get all user reported emergency!", allUser,  pagination, page, total
         });
     });
 });
 };
 
 exports.getOneEmergency = (req, res) => {
-    const slug = req.params.slug.toLowerCase();
-
+    const slug = req.params.slug;
+    console.log("check: " + slug)
     Ereporting.findOne({ reportNumber: slug }).exec((err, players) => {
         if (err) {
             return res.status(400).json({
@@ -137,6 +151,50 @@ exports.getOneEmergency = (req, res) => {
             });
         }
         res.json(players);
+    });
+};
+
+exports.getUserProfile = (req, res) => {
+    const slug = req.params.slug;
+    console.log("check: " + slug)
+    User.findOne({ _id: slug }).exec((err, user) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'USER not found'
+            });
+        }
+        res.json(user);
+    });
+};
+
+exports.getUserProfile = (req, res) => {
+    const slug = req.params.slug;
+    console.log("check: " + slug)
+    User.findOne({ _id: slug }).exec((err, user) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'USER not found'
+            });
+        }
+        res.json(user);
+    });
+};
+
+
+exports.updateUser = (req, res) => {
+    const slug = req.params.slug.toLowerCase();
+    var myquery ={ _id: slug }
+    
+ 
+    var newV = req.body;
+
+    User.updateOne(myquery,newV).exec((err, data) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            });
+        }
+        res.json(data.nModified + " Updated User");
     });
 };
 
