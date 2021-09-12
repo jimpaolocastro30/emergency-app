@@ -1,19 +1,19 @@
 @url = http://localhost:5000/api
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE3OGU5ZTdmMTRjMDA5MTg5MWQ1ODciLCJpYXQiOjE2Mjg5MzQ1ODUsImV4cCI6MTYyOTAyMDk4NX0.PKHOLs_i2p29-tUaZf45KcQkNWms6m9IfMX0wTNLkiU
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTNlMWE4NmRkOTMwODJkOWNlN2E4NmIiLCJpYXQiOjE2MzE0NjExMzQsImV4cCI6MTYzMTU0NzUzNH0.auTSB4ySGmCRoeEdd9ZozAXbLrEkj1h-xrZ17ySZOPM
 
-## User Registration ##
+### User Registration ###
 POST {{url}}/citizen/user/signup
 Content-Type: application/json
 
 {
-    "username" : "Leona01",
-    "firstName" : "Leona",
-    "lastName" : "lewis",
-    "email" : "Leona.lewis@gmails.com",
-    "mobileNumber" : "4234242",
+    "username" : "Jaysonlods",
+    "firstName" : "jayson",
+    "lastName" : "leal",
+    "email" : "jay.leal@gmails.com",
+    "mobileNumber" : "654654654645",
     "language" : "religion",
-    "yellowCardControlNumber" : "3232323",
+    "yellowCardControlNumber" : "4234324324",
     "password" : "12345678",
     "religion" : "Roman Catholic"
  
@@ -25,13 +25,13 @@ POST {{url}}/citizen/user/signin
 Content-Type: application/json
 
 {
-   "username" : "Leona01", 
+   "username" : "Jaysonlods", 
    "password" : "12345678"
 }
 
 
 ### User signout ##
-GET {{url}/}citizen/user/signout
+GET {{url}}/citizen/user/signout
 Content-Type: application/json
 
 {
@@ -44,21 +44,29 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {   
-    "reportNumber" : "dsadasda2121",
-    "emergencyCategory" : "Orange",
-    "citizenDetails" : [{
-    "username": "leona01",
-    "firstName": "Leona",
-    "lastName": "lewis",
-    "email": "leona.lewis@gmails.com",
-    "mobileNumber": "4234242"
-  }],
-    "dateTime" : "14/08/2021 5:45:00 PM"
+    "emergencyCategory" : "Red",
+    "citizenId": "613e1a86dd93082d9ce7a86b",
+    "typeOfEmergency" : "Life urgency",
+    "emergencyAddress" : "Cash and carry mall makati",
+    "userPhotoTaken" : ""
 }
 
 ### Request wallet load ###
-GET {{url}}/citizen/user/get/all/er
+GET {{url}}/citizen/profile/613e1a86dd93082d9ce7a86b
 Authorization: Bearer {{token}}
 
 ### USER PROFILE ###
-GET {{url}}api/user/wallet/details/321321321321
+PUT {{url}}/citizen/update-profile/613e1a86dd93082d9ce7a86b
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "jaysonlods",
+  "firstName": "jayson 2",
+  "lastName": "leal",
+  "email": "jay.leal@gmails.com",
+  "language": "religion",
+  "religion": "Roman Catholic",
+  "yellowCardControlNumber": "4234324324",
+  "mobileNumber": "654654654645"
+}

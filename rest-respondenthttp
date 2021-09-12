@@ -1,0 +1,59 @@
+@url = http://localhost:5000/api
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTNlMzRkMThjZjhlNzA2YTBkMDM1YzQiLCJpYXQiOjE2MzE0NjY3MTEsImV4cCI6MTYzMTU1MzExMX0.0qkD4dmz5-6vdQFX3PsUnM33Ad5RqoqRlvPxNkmrBqQ
+
+## User Registration ##
+POST {{url}}/emergency/user/signup
+Content-Type: application/json
+
+{
+    "username" : "kanor03",
+    "firstName" : "aldin3",
+    "lastName" : "kanor3",
+    "email" : "al.kanor3@gmails.com",
+    "mobileNumber" : "12321312421",
+    "role" : 2,
+    "language" : "tagalog",
+    "password" : "12345678"
+
+}
+
+### User Signin ###
+POST {{url}}/emergency/user/signin
+Content-Type: application/json
+
+{
+   "username" : "kanor03", 
+   "password" : "12345678"
+}
+
+
+### User signout ##
+GET {{url}}/emergency/user/signout
+Content-Type: application/json
+
+{
+   "Token" : "NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE5MDE4MmVmNzNkMTFlNjQzZWZkZGEiLCJpYXQiOjE2MjkwMjkwODcsImV4cCI6MTYyOTExNTQ4N30.RCGyXmUOm_JwIdOklEaeb2yZifkv8gDzcOiGH-TrbCo"
+}
+
+### USER PROFILE ###
+GET {{url}}/responend/assigned/613e34d18cf8e706a0d035c4
+Authorization: Bearer {{token}}
+
+
+### USER PROFILE ###
+GET {{url}}/responend/dispatch/Uwr1631465667697
+Authorization: Bearer {{token}}
+
+### USER PROFILE ###
+PUT {{url}}/respondent/dispatch/Uwr1631465667697
+Authorization: Bearer {{token}}
+
+{
+
+"dateTimeResolve" : "2021-09-12T16:54:27.697Z",
+"remarksByDispatcher" : "all good",
+"responderId" : "613e34d18cf8e706a0d035c4"
+}
+
+

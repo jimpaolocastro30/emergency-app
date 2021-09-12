@@ -1,51 +1,52 @@
 @url = http://localhost:5000/api
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE3OGU5ZTdmMTRjMDA5MTg5MWQ1ODciLCJpYXQiOjE2Mjg5MzQ1ODUsImV4cCI6MTYyOTAyMDk4NX0.PKHOLs_i2p29-tUaZf45KcQkNWms6m9IfMX0wTNLkiU
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTNlMjNkOGQ2ZGFkMDNiNTg1MWJiMGUiLCJpYXQiOjE2MzE0NjIzODUsImV4cCI6MTYzMTU0ODc4NX0.0GRbYKGsSFVLSOtn4nRz7JqlJeveUt1N24mJVenZgys
 
 ## User Registration ##
-POST {{url}}/citizen/user/signup
+POST {{url}}/emergency/user/signup
 Content-Type: application/json
 
 {
-    "username" : "Leona01",
-    "firstName" : "Leona",
-    "lastName" : "lewis",
-    "email" : "Leona.lewis@gmails.com",
-    "mobileNumber" : "4234242",
-    "language" : "religion",
-    "yellowCardControlNumber" : "3232323",
-    "password" : "12345678",
-    "religion" : "Roman Catholic"
- 
+    "username" : "kanor02",
+    "firstName" : "aldin2",
+    "lastName" : "kanor2",
+    "email" : "al.kanor2@gmails.com",
+    "mobileNumber" : "645645645645",
+    "role" : 1,
+    "language" : "tagalog",
+    "password" : "12345678"
 
 }
 
 ### User Signin ###
-POST {{url}}/citizen/user/signin
+POST {{url}}/emergency/user/signin
 Content-Type: application/json
 
 {
-   "username" : "Leona01", 
+   "username" : "kanor02", 
    "password" : "12345678"
 }
 
 
 ### User signout ##
-GET {{url}/}citizen/user/signout
+GET {{url}}/emergency/user/signout
 Content-Type: application/json
 
 {
-   "Token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE3OGU5ZTdmMTRjMDA5MTg5MWQ1ODciLCJpYXQiOjE2Mjg5MzM4OTQsImV4cCI6MTYyOTAyMDI5NH0.T4XDnitpti2db6w_Y7bbgVYcUvRB80SUBg1eTKhoIVI"
+   "Token" : "NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE5MDE4MmVmNzNkMTFlNjQzZWZkZGEiLCJpYXQiOjE2MjkwMjkwODcsImV4cCI6MTYyOTExNTQ4N30.RCGyXmUOm_JwIdOklEaeb2yZifkv8gDzcOiGH-TrbCo"
 }
 
 ### Get Wallet ###
-POST {{url}}/citizen/user/er
+POST {{url}}/emergency/user/dispatcher/emergencyrespReport
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {   
-    "reportNumber" : "dsadasda2121",
-    "emergencyCategory" : "Orange",
+    "emergencyReportDetails" : [{
+    "reportNumber" : "dsadasda2122",
+    "emergencyCategory" : "Red",
+    "dateTimeReported" : "14/08/2021 5:45:00 PM"
+    }],
     "citizenDetails" : [{
     "username": "leona01",
     "firstName": "Leona",
@@ -53,12 +54,48 @@ Content-Type: application/json
     "email": "leona.lewis@gmails.com",
     "mobileNumber": "4234242"
   }],
-    "dateTime" : "14/08/2021 5:45:00 PM"
+  "dateTimeReported" : "15/08/2021 6:28:00 PM",
+  "dateTimeResolved" : "15/08/2021 7:28:00 PM",
+  "dispatched" : "asap",
+  "priorityLevel" : "RED",
+  "quadrant" : 11,
+  "editedAddress" : "",
+  "long" : "121.020799",
+  "lat" : "14.550521",
+  "remarks" : "Just deal with it"
+
 }
 
 ### Request wallet load ###
-GET {{url}}/citizen/user/get/all/er
+GET {{url}}/emergency/user/dispatcher/emergencyrespReport/dispatcher/all?pagination=10&page=1
 Authorization: Bearer {{token}}
 
 ### USER PROFILE ###
-GET {{url}}api/user/wallet/details/321321321321
+GET {{url}}/emergency/user/dispatcher/emergencyrespReport/dispatcher/one/Uwr1631466493191
+Authorization: Bearer {{token}}
+
+### USER PROFILE ###
+PUT {{url}}/respondent/dispatch/Uwr1631465608641
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+"dispatchTo" : "613e34d18cf8e706a0d035c4",
+"priortyLevel" : "orange",
+"quadrant": "dsdsa",
+"editedAddress" : "makati",
+"editedCategory" : "test2",
+"long" : "2131",
+"lat" : "332"
+}
+
+
+### USER PROFILE ###
+GET {{url}}/respondent/list
+Authorization: Bearer {{token}}
+
+
+### USER PROFILE ###
+GET {{url}}/respondent/one/61190653bc6d20550a67a718
+Authorization: Bearer {{token}}
+
